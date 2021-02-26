@@ -51,4 +51,10 @@ tasks {
         // ensure we shade in dependencies at runtime
         dependsOn("shadowJar")
     }
+
+    spigot {
+        name = "VeinMiner"
+        authors = listOf("Nanofaux", "SkyezerFox")
+        apiVersion = "1.16"
+    }
 }
