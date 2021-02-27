@@ -4,6 +4,7 @@ import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPICommand
 import dev.jorel.commandapi.executors.PlayerCommandExecutor
 import kr.entree.spigradle.annotations.PluginMain
+import me.yiffed.veinminer.listeners.BlockBreakListener
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -27,5 +28,7 @@ class VeinMiner : JavaPlugin() {
         // please try and use this as often as you can - isn't necessary, but helps other people
         // read your code :3
         this.logger.info("enabled!")
+
+        server.pluginManager.registerEvents(BlockBreakListener(), this)
     }
 }
