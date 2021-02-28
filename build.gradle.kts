@@ -21,7 +21,7 @@ repositories {
 }
 
 // module information
-version = "1.0.0"
+version = "1.0.1"
 group = "me.yiffed.veinminer"
 
 // define the actual dependencies
