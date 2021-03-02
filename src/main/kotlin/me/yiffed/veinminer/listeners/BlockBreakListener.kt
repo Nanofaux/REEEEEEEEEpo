@@ -23,7 +23,10 @@ class BlockBreakListener : Listener {
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
         val block = event.block
-        val playerItem = event.player.inventory.itemInMainHand
+        val player = event.player
+        if (player.isSneaking)
+            return
+        val playerItem = player.inventory.itemInMainHand
         if (isOre(block) && picks.contains(playerItem.type) || isTree(block))
             veinMine(block)
     }
