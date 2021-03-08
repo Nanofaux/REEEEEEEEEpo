@@ -5,6 +5,7 @@ import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.inventory.ItemStack
 
 class BlockBreakListener : Listener {
     private val picks = listOf(
@@ -24,11 +25,11 @@ class BlockBreakListener : Listener {
     fun onBlockBreak(event: BlockBreakEvent) {
         val block = event.block
         val player = event.player
+        val playerItem = player.inventory.itemInMainHand
         if (player.isSneaking)
             return
-        val playerItem = player.inventory.itemInMainHand
         if (isOre(block) && picks.contains(playerItem.type) || isTree(block))
-            veinMine(block)
+            veinMine(block, playerItem)
     }
 
     private fun getNearbyBlocks(block: Block): MutableList<Block> {
@@ -63,13 +64,13 @@ class BlockBreakListener : Listener {
         return blocks
     }
 
-    private fun veinMine(block: Block) {
+    private fun veinMine(block: Block, item: ItemStack) {
         var blocks = getNearbyBlocks(block)
         for (i in 0..6) {
             val nextBlocks = mutableListOf<Block>()
             for (curBlock: Block in blocks) {
                 nextBlocks += getNearbyBlocks(curBlock)
-                curBlock.breakNaturally()
+                curBlock.breakNaturally(item)
             }
             nextBlocks.removeAll { it.type == Material.AIR }
             if (nextBlocks.size == 0)
